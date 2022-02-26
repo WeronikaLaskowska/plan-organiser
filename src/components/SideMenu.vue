@@ -81,9 +81,12 @@
     </div>
     <modal name="confirmation" class="confirmation-modal">
       <p>
-        <span class="">Czy jesteś pewien</span>, że potwierdzasz
-        wprowadzone przez siebie dane i chcesz przejść do ostatniego kroku:
-        tworzenia planu? <span class="warning">Krok ostatni nalezy wypełnić bez wylogowywania/ wychodzenia z aplikacji, inaczej wszystkie dane zostaną stracone!</span> 
+        <span class="">Czy jesteś pewien</span>, że potwierdzasz wprowadzone
+        przez siebie dane i chcesz przejść do ostatniego kroku: tworzenia planu?
+        <span class="warning"
+          >Krok ostatni nalezy wypełnić bez wylogowywania/ wychodzenia z
+          aplikacji, inaczej wszystkie dane zostaną stracone!</span
+        >
       </p>
       <div @click="redirectCalR" class="btn">POTWIERDZAM</div>
     </modal>
@@ -91,8 +94,8 @@
 </template>
 
 <script>
-import { auth } from "./../firebase/config.js";
-
+import { auth, db } from "./../firebase/config.js";
+import { doc, getDoc } from "firebase/firestore";
 export default {
   name: "SideMenu",
   props: [
@@ -103,6 +106,22 @@ export default {
     "calActive",
     "locked",
   ],
+  mounted() {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const docRef = doc(db, "data", auth.currentUser.uid);
+        this.docSnap = await getDoc(docRef);
+        if (this.makingPlan) {
+          this.locked = true;
+          if (this.$router.currentRoute.path !== "/tworz-plan") {
+            this.$router.push({ name: "CreatePlan" });
+          }
+        }
+      } else {
+        this.$router.push({ name: "Auth" });
+      }
+    });
+  },
   methods: {
     redirectData() {
       if (!this.locked) this.$router.push({ name: "EnterData" });
@@ -122,7 +141,20 @@ export default {
     },
     redirectCalR() {
       this.$modal.hide("confirmation");
-      this.$router.push({ name: "CreatePlan" });
+      db.collection("data")
+        .doc(auth.currentUser.uid)
+        .set({
+          klucze: this.keys,
+          klasy: this.classes,
+          nauczyciele: this.teachers,
+          przedmioty: this.subjects,
+          hours_s: this.hours_s,
+          hours_e: this.hours_e,
+          makingPlan: true,
+        })
+        .then(() => {
+          this.$router.push({ name: "CreatePlan" });
+        });
     },
     logout() {
       auth.signOut().then(() => {
@@ -150,6 +182,27 @@ export default {
     calActiveC() {
       if (this.calActive) return true;
       else return false;
+    },
+    makingPlan() {
+      return this.docSnap.data().makingPlan;
+    },
+      classes() {
+      return this.docSnap.data().klasy;
+    },
+    teachers() {
+      return this.docSnap.data().nauczyciele;
+    },
+    subjects() {
+      return this.docSnap.data().przedmioty;
+    },
+    keys() {
+      return this.docSnap.data().klucze;
+    },
+    hours_s() {
+      return this.docSnap.data().hours_s;
+    },
+    hours_e() {
+      return this.docSnap.data().hours_e;
     },
   },
 };
@@ -258,12 +311,11 @@ export default {
 .confirmation-modal {
   display: flex;
   flex-direction: column;
- 
 }
 .confirmation-modal p {
   padding: 20px;
   font-weight: 600;
-   font-size: 19px;
+  font-size: 19px;
 }
 .confirmation-modal .btn {
   margin-left: 160px;

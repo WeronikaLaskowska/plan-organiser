@@ -194,6 +194,9 @@ export default {
     hours_e(){
       return this.docSnap.data().hours_e;
     },
+     makingPlan() {
+      return this.docSnap.data().makingPlan;
+    },
   },
   methods: {
     validateHours(string) {
@@ -255,7 +258,8 @@ export default {
             nauczyciele: this.teachers,
             przedmioty: this.subjects,
             hours_s: hours_start,
-            hours_e:hours_end
+            hours_e:hours_end,
+            makingPlan: this.makingPlan
           })
           .then(() => {
               showSnackbar(`Zapisano pomyślnie`, 'success');

@@ -940,7 +940,7 @@ export default {
                   showSnackbar(
                     `Nauczyciel: ${
                       arr[a].nauczyciel
-                    } jest niedostepny na lekcji ${a + 1} `
+                    } ma zajecia z klasą ${this.classes[b].monday[a].klasa} na lekcji ${a + 1} `
                   );
                   this.visible = true;
                   return;
@@ -962,7 +962,7 @@ export default {
                   showSnackbar(
                     `Nauczyciel: ${
                       arr[a].nauczyciel
-                    } jest niedostepny na lekcji ${a + 1} `
+                    }ma zajecia z klasą ${this.classes[b].tuesday[a].klasa} na lekcji ${a + 1} `
                   );
                   this.visible = true;
                   return;
@@ -982,9 +982,9 @@ export default {
                 ) {
                   this.classSelect = this.currentClass;
                   showSnackbar(
-                    `Nauczyciel: ${
+                   `Nauczyciel: ${
                       arr[a].nauczyciel
-                    } jest niedostepny na lekcji ${a + 1} `
+                    }ma zajecia z klasą ${this.classes[b].wen[a].klasa} na lekcji ${a + 1} `
                   );
                   this.visible = true;
                   return;
@@ -1004,9 +1004,9 @@ export default {
                 ) {
                   this.classSelect = this.currentClass;
                   showSnackbar(
-                    `Nauczyciel: ${
+                   `Nauczyciel: ${
                       arr[a].nauczyciel
-                    } jest niedostepny na lekcji ${a + 1} `
+                    }ma zajecia z klasą ${this.classes[b].thur[a].klasa} na lekcji ${a + 1} `
                   );
                   this.visible = true;
                   return;
@@ -1026,9 +1026,9 @@ export default {
                 ) {
                   this.classSelect = this.currentClass;
                   showSnackbar(
-                    `Nauczyciel: ${
+                 `Nauczyciel: ${
                       arr[a].nauczyciel
-                    } jest niedostepny na lekcji ${a + 1} `
+                    }ma zajecia z klasą ${this.classes[b].friday[a].klasa} na lekcji ${a + 1} `
                   );
                   this.visible = true;
                   return;

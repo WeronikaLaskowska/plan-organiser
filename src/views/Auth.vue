@@ -141,7 +141,7 @@ export default {
         this.repeatPassword !== ""
       ) {
         if (this.password === this.repeatPassword) {
-          if (signUp(this.email, this.password)) {
+          await signUp(this.email, this.password).then( async () =>{
             if(this.password.length >=6){
               if(this.validateEmail(this.email)){
                  await auth
@@ -156,6 +156,7 @@ export default {
                     przedmioty: [],
                     hours_s: [],
                     hours_e: [],
+                    makingPlan: false
                     
                   })
                   .then(() => {
@@ -171,10 +172,14 @@ export default {
             }else{
               showSnackbar("Hasło jest za krótkie. Wymagane przynajmniej 6 znaków", "warning");
             }
+          }).catch(() =>{
+            showSnackbar("Wystąpił błąd. Spróbuj ponownie.", "warning");
+          })
+            
            
-          } else {
-          showSnackbar("Wystąpił błąd. Spróbuj ponownie.", "warning");
-          }
+          // } else {
+          // showSnackbar("Wystąpił błąd. Spróbuj ponownie.", "warning");
+          // }
         } else {
           showSnackbar("Hasła się od siebie różnią!", "warning");
         }

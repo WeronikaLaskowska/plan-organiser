@@ -138,6 +138,8 @@ export default {
             przedmioty: this.subjects,
             hours_s: this.hours_s,
             hours_e: this.hours_e,
+          makingPlan: this.makingPlan
+
           })
           .then(() => {
             this.clas = "";
@@ -166,6 +168,7 @@ export default {
           przedmioty: this.subjects,
           hours_s: this.hours_s,
           hours_e: this.hours_e,
+          makingPlan: this.makingPlan
         })
         .then(() => {
           this.$forceUpdate();
@@ -190,6 +193,9 @@ export default {
     },
     hours_e() {
       return this.docSnap.data().hours_e;
+    },
+     makingPlan() {
+      return this.docSnap.data().makingPlan;
     },
   },
 };

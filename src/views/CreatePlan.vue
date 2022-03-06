@@ -31,13 +31,19 @@
           <span class="subj">{{ lesson_1_p }}</span>
           <span
             v-if="lesson_1 !== ''"
-            @click="(lesson_1 = ''), (lesson_1_p = '')"
+            @click="
+              (lesson_1 = ''), (lesson_1_p = ''), checkCounters('deleted-subj')
+            "
             class="delete del"
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
           <select @change="lesson_1_p = ''" v-model="lesson_1">
-            <option v-for="(key, index) in keys" :key="index" :value="key">
+            <option
+              v-for="(key, index) in checkTeachers(keys, 0)"
+              :key="index"
+              :value="key"
+            >
               {{ key.przedmiot }}
             </option>
           </select>
@@ -51,13 +57,19 @@
           <span class="subj">{{ lesson_2_p }}</span>
           <span
             v-if="lesson_2 !== ''"
-            @click="(lesson_2 = ''), (lesson_2_p = '')"
+            @click="
+              (lesson_2 = ''), (lesson_2_p = ''), checkCounters('deleted-subj')
+            "
             class="delete del"
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
           <select @change="lesson_2_p = ''" v-model="lesson_2">
-            <option v-for="(key, index) in keys" :key="index" :value="key">
+            <option
+              v-for="(key, index) in checkTeachers(keys, 1)"
+              :key="index"
+              :value="key"
+            >
               {{ key.przedmiot }}
             </option>
           </select>
@@ -71,13 +83,19 @@
           <span class="subj">{{ lesson_3_p }}</span>
           <span
             v-if="lesson_3 !== ''"
-            @click="(lesson_3 = ''), (lesson_3_p = '')"
+            @click="
+              (lesson_3 = ''), (lesson_3_p = ''), checkCounters('deleted-subj')
+            "
             class="delete"
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
           <select @change="lesson_3_p = ''" v-model="lesson_3">
-            <option v-for="(key, index) in keys" :key="index" :value="key">
+            <option
+              v-for="(key, index) in checkTeachers(keys, 2)"
+              :key="index"
+              :value="key"
+            >
               {{ key.przedmiot }}
             </option>
           </select>
@@ -91,13 +109,19 @@
           <span class="subj">{{ lesson_4_p }}</span>
           <span
             v-if="lesson_4 !== ''"
-            @click="(lesson_4 = ''), (lesson_4_p = '')"
+            @click="
+              (lesson_4 = ''), (lesson_4_p = ''), checkCounters('deleted-subj')
+            "
             class="delete"
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
           <select @change="lesson_4_p = ''" v-model="lesson_4">
-            <option v-for="(key, index) in keys" :key="index" :value="key">
+            <option
+              v-for="(key, index) in checkTeachers(keys, 3)"
+              :key="index"
+              :value="key"
+            >
               {{ key.przedmiot }}
             </option>
           </select>
@@ -111,13 +135,19 @@
           <span class="subj">{{ lesson_5_p }}</span>
           <span
             v-if="lesson_5 !== ''"
-            @click="(lesson_5 = ''), (lesson_5_p = '')"
+            @click="
+              (lesson_5 = ''), (lesson_5_p = ''), checkCounters('deleted-subj')
+            "
             class="delete"
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
           <select @change="lesson_5_p = ''" v-model="lesson_5">
-            <option v-for="(key, index) in keys" :key="index" :value="key">
+            <option
+              v-for="(key, index) in checkTeachers(keys, 4)"
+              :key="index"
+              :value="key"
+            >
               {{ key.przedmiot }}
             </option>
           </select>
@@ -131,13 +161,19 @@
           <span class="subj">{{ lesson_6_p }}</span>
           <span
             v-if="lesson_6 !== ''"
-            @click="(lesson_6 = ''), (lesson_6_p = '')"
+            @click="
+              (lesson_6 = ''), (lesson_6_p = ''), checkCounters('deleted-subj')
+            "
             class="delete"
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
           <select @change="lesson_6_p = ''" v-model="lesson_6">
-            <option v-for="(key, index) in keys" :key="index" :value="key">
+            <option
+              v-for="(key, index) in checkTeachers(keys, 5)"
+              :key="index"
+              :value="key"
+            >
               {{ key.przedmiot }}
             </option>
           </select>
@@ -151,13 +187,19 @@
           <span class="subj">{{ lesson_7_p }}</span>
           <span
             v-if="lesson_7 !== ''"
-            @click="(lesson_7 = ''), (lesson_7_p = '')"
+            @click="
+              (lesson_7 = ''), (lesson_7_p = ''), checkCounters('deleted-subj')
+            "
             class="delete"
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
           <select @change="lesson_7_p = ''" v-model="lesson_7">
-            <option v-for="(key, index) in keys" :key="index" :value="key">
+            <option
+              v-for="(key, index) in checkTeachers(keys, 6)"
+              :key="index"
+              :value="key"
+            >
               {{ key.przedmiot }}
             </option>
           </select>
@@ -171,13 +213,19 @@
           <span class="subj">{{ lesson_8_p }}</span>
           <span
             v-if="lesson_8 !== ''"
-            @click="(lesson_8 = ''), (lesson_8_p = '')"
+            @click="
+              (lesson_8 = ''), (lesson_8_p = ''), checkCounters('deleted-subj')
+            "
             class="delete"
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
           <select @change="lesson_8_p = ''" v-model="lesson_8">
-            <option v-for="(key, index) in keys" :key="index" :value="key">
+            <option
+              v-for="(key, index) in checkTeachers(keys, 7)"
+              :key="index"
+              :value="key"
+            >
               {{ key.przedmiot }}
             </option>
           </select>
@@ -250,6 +298,7 @@ export default {
       arr: [],
       correct: false,
       visible: true,
+      refreshKey: false,
     };
   },
   methods: {
@@ -259,6 +308,53 @@ export default {
       if (this.currDay === "wen") return "Środa";
       if (this.currDay === "thur") return "Czwartek";
       if (this.currDay === "fri") return "Piątek";
+    },
+    checkTeachers(keys, num) {
+      return keys.filter((key) => {
+        for (let x = 0; x < this.classes.length; x++) {
+          if (this.currDay == "mon") {
+            if (
+              this.classes[x].monday[num] !== null &&
+              this.classes[x].monday[num].nauczyciel == key.nauczyciel
+            ) {
+              return;
+            }
+          }
+          if (this.currDay == "tue") {
+            if (
+              this.classes[x].tuesday[num] !== null &&
+              this.classes[x].tuesday[num].nauczyciel == key.nauczyciel
+            ) {
+              return;
+            }
+          }
+          if (this.currDay == "wen") {
+            if (
+              this.classes[x].wen[num] !== null &&
+              this.classes[x].wen[num].nauczyciel == key.nauczyciel
+            ) {
+              return;
+            }
+          }
+          if (this.currDay == "thur") {
+            if (
+              this.classes[x].thur[num] !== null &&
+              this.classes[x].thur[num].nauczyciel == key.nauczyciel
+            ) {
+              return;
+            }
+          }
+          if (this.currDay == "fri") {
+            if (
+              this.classes[x].friday[num] !== null &&
+              this.classes[x].friday[num].nauczyciel == key.nauczyciel
+            ) {
+              return;
+            }
+          }
+        }
+        return key;
+      });
     },
     clearMockups() {
       this.lesson_1_p = "";
@@ -580,6 +676,15 @@ export default {
           this.clear();
           await this.setupInitial().then(() => {
             this.visible = true;
+            this.refreshKey = !this.refreshKey;
+          });
+        }
+
+        if (type === "deleted-subj") {
+          this.clear();
+          await this.setupInitial().then(() => {
+            this.visible = true;
+            this.refreshKey = !this.refreshKey;
           });
         }
       }
@@ -919,6 +1024,7 @@ export default {
                 //   this.visible = true;
                 // });
                 this.visible = true;
+                this.refreshKey = !this.refreshKey;
                 return;
               }
             }
@@ -938,9 +1044,9 @@ export default {
                 ) {
                   this.classSelect = this.currentClass;
                   showSnackbar(
-                    `Nauczyciel: ${
-                      arr[a].nauczyciel
-                    } ma zajecia z klasą ${this.classes[b].monday[a].klasa} na lekcji ${a + 1} `
+                    `Nauczyciel: ${arr[a].nauczyciel} ma zajecia z klasą ${
+                      this.classes[b].monday[a].klasa
+                    } na lekcji ${a + 1} `
                   );
                   this.visible = true;
                   return;
@@ -960,9 +1066,9 @@ export default {
                 ) {
                   this.classSelect = this.currentClass;
                   showSnackbar(
-                    `Nauczyciel: ${
-                      arr[a].nauczyciel
-                    }ma zajecia z klasą ${this.classes[b].tuesday[a].klasa} na lekcji ${a + 1} `
+                    `Nauczyciel: ${arr[a].nauczyciel}ma zajecia z klasą ${
+                      this.classes[b].tuesday[a].klasa
+                    } na lekcji ${a + 1} `
                   );
                   this.visible = true;
                   return;
@@ -982,9 +1088,9 @@ export default {
                 ) {
                   this.classSelect = this.currentClass;
                   showSnackbar(
-                   `Nauczyciel: ${
-                      arr[a].nauczyciel
-                    }ma zajecia z klasą ${this.classes[b].wen[a].klasa} na lekcji ${a + 1} `
+                    `Nauczyciel: ${arr[a].nauczyciel}ma zajecia z klasą ${
+                      this.classes[b].wen[a].klasa
+                    } na lekcji ${a + 1} `
                   );
                   this.visible = true;
                   return;
@@ -1004,9 +1110,9 @@ export default {
                 ) {
                   this.classSelect = this.currentClass;
                   showSnackbar(
-                   `Nauczyciel: ${
-                      arr[a].nauczyciel
-                    }ma zajecia z klasą ${this.classes[b].thur[a].klasa} na lekcji ${a + 1} `
+                    `Nauczyciel: ${arr[a].nauczyciel}ma zajecia z klasą ${
+                      this.classes[b].thur[a].klasa
+                    } na lekcji ${a + 1} `
                   );
                   this.visible = true;
                   return;
@@ -1026,9 +1132,9 @@ export default {
                 ) {
                   this.classSelect = this.currentClass;
                   showSnackbar(
-                 `Nauczyciel: ${
-                      arr[a].nauczyciel
-                    }ma zajecia z klasą ${this.classes[b].friday[a].klasa} na lekcji ${a + 1} `
+                    `Nauczyciel: ${arr[a].nauczyciel}ma zajecia z klasą ${
+                      this.classes[b].friday[a].klasa
+                    } na lekcji ${a + 1} `
                   );
                   this.visible = true;
                   return;
@@ -1511,6 +1617,7 @@ export default {
             this.clear();
             await this.setupInitial().then(() => {
               this.visible = true;
+              this.refreshKey = !this.refreshKey;
             });
           }
           if (type === "decrease-day") {
@@ -1519,6 +1626,7 @@ export default {
             this.clear();
             await this.setupInitial().then(() => {
               this.visible = true;
+              this.refreshKey = !this.refreshKey;
             });
           }
           if (type === "increase-day") {
@@ -1527,6 +1635,13 @@ export default {
             this.clear();
             await this.setupInitial().then(() => {
               this.visible = true;
+              this.refreshKey = !this.refreshKey;
+            });
+          }
+          if (type === "deleted-subj") {
+            await this.setupInitial().then(() => {
+              this.visible = true;
+              this.refreshKey = !this.refreshKey;
             });
           }
         })
@@ -1603,7 +1718,59 @@ export default {
     },
     keys() {
       return this.docSnap.data().klucze.filter((key) => {
-        if (key.klasa == this.currentClass) return key;
+        //if (key.klasa == this.currentClass) return key;
+        if (key.klasa == this.currentClass) {
+          this.refreshKey;
+          for (let y = 0; y < this.classes.length; y++) {
+            if (this.classes[y].name == key.klasa) {
+              let count = 0;
+              for (let x = 0; x < this.classes[y].monday.length; x++) {
+                if (
+                  this.classes[y].monday[x] !== null &&
+                  this.classes[y].monday[x].przedmiot == key.przedmiot
+                ) {
+                  count++;
+                }
+              }
+              for (let x = 0; x < this.classes[y].tuesday.length; x++) {
+                if (
+                  this.classes[y].tuesday[x] !== null &&
+                  this.classes[y].tuesday[x].przedmiot == key.przedmiot
+                ) {
+                  count++;
+                }
+              }
+              for (let x = 0; x < this.classes[y].wen.length; x++) {
+                if (
+                  this.classes[y].wen[x] !== null &&
+                  this.classes[y].wen[x].przedmiot == key.przedmiot
+                ) {
+                  count++;
+                }
+              }
+              for (let x = 0; x < this.classes[y].thur.length; x++) {
+                if (
+                  this.classes[y].thur[x] !== null &&
+                  this.classes[y].thur[x].przedmiot == key.przedmiot
+                ) {
+                  count++;
+                }
+              }
+              for (let x = 0; x < this.classes[y].friday.length; x++) {
+                if (
+                  this.classes[y].friday[x] !== null &&
+                  this.classes[y].friday[x].przedmiot == key.przedmiot
+                ) {
+                  count++;
+                }
+              }
+
+              if (count < key.licznik) {
+                return key;
+              }
+            }
+          }
+        }
       });
     },
     hours_s() {
@@ -1635,7 +1802,7 @@ export default {
   margin-top: 18px;
 }
 select {
-  min-width: 450px;
+  min-width: 550px;
   padding: 0px 30px;
   font-size: 30px;
   margin: 3px 30px;

@@ -38,7 +38,7 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_1_p = ''" v-model="lesson_1">
+          <select @change="lesson_1_p = '', checkCounters('deleted-subj')" v-model="lesson_1">
             <option
               v-for="(key, index) in checkTeachers(keys, 0)"
               :key="index"
@@ -64,7 +64,7 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_2_p = ''" v-model="lesson_2">
+          <select @change="lesson_2_p = '', checkCounters('deleted-subj')" v-model="lesson_2">
             <option
               v-for="(key, index) in checkTeachers(keys, 1)"
               :key="index"
@@ -90,7 +90,7 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_3_p = ''" v-model="lesson_3">
+          <select @change="lesson_3_p = '', checkCounters('deleted-subj')" v-model="lesson_3">
             <option
               v-for="(key, index) in checkTeachers(keys, 2)"
               :key="index"
@@ -116,7 +116,7 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_4_p = ''" v-model="lesson_4">
+          <select @change="lesson_4_p = '', checkCounters('deleted-subj')" v-model="lesson_4">
             <option
               v-for="(key, index) in checkTeachers(keys, 3)"
               :key="index"
@@ -142,7 +142,7 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_5_p = ''" v-model="lesson_5">
+          <select @change="lesson_5_p = '', checkCounters('deleted-subj')" v-model="lesson_5">
             <option
               v-for="(key, index) in checkTeachers(keys, 4)"
               :key="index"
@@ -168,7 +168,7 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_6_p = ''" v-model="lesson_6">
+          <select @change="lesson_6_p = '', checkCounters('deleted-subj')" v-model="lesson_6">
             <option
               v-for="(key, index) in checkTeachers(keys, 5)"
               :key="index"
@@ -194,7 +194,7 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_7_p = ''" v-model="lesson_7">
+          <select @change="lesson_7_p = '', checkCounters('deleted-subj')" v-model="lesson_7">
             <option
               v-for="(key, index) in checkTeachers(keys, 6)"
               :key="index"
@@ -220,7 +220,7 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_8_p = ''" v-model="lesson_8">
+          <select @change="lesson_8_p = '', checkCounters('deleted-subj')" v-model="lesson_8">
             <option
               v-for="(key, index) in checkTeachers(keys, 7)"
               :key="index"
@@ -310,6 +310,7 @@ export default {
       if (this.currDay === "fri") return "Piątek";
     },
     checkTeachers(keys, num) {
+      //return keys;  <-- wersja bez automatycznego usuwania z selectow (powiadomienia pokazuja sie)
       return keys.filter((key) => {
         for (let x = 0; x < this.classes.length; x++) {
           if (this.currDay == "mon") {
@@ -655,7 +656,6 @@ export default {
     // to trzeba bedzie zrobic od razu po wszystkich dniach tygodnia
     async checkCounters(type) {
       this.visible = false;
-
       if (
         (this.lesson_1 === "" || this.lesson_1 === undefined) &&
         (this.lesson_2 === "" || this.lesson_2 === undefined) &&
@@ -664,7 +664,8 @@ export default {
         (this.lesson_5 === "" || this.lesson_5 === undefined) &&
         (this.lesson_6 === "" || this.lesson_6 === undefined) &&
         (this.lesson_7 === "" || this.lesson_7 === undefined) &&
-        (this.lesson_8 === "" || this.lesson_8 === undefined)
+        (this.lesson_8 === "" || this.lesson_8 === undefined) &&
+        type !== 'deleted-subj'
       ) {
         if (type === "class-change") {
           this.currentClass = this.classSelect;
@@ -673,14 +674,6 @@ export default {
               this.i = a;
             }
           }
-          this.clear();
-          await this.setupInitial().then(() => {
-            this.visible = true;
-            this.refreshKey = !this.refreshKey;
-          });
-        }
-
-        if (type === "deleted-subj") {
           this.clear();
           await this.setupInitial().then(() => {
             this.visible = true;
@@ -1605,6 +1598,7 @@ export default {
           przedmioty: this.subjects,
           hours_s: this.hours_s,
           hours_e: this.hours_e,
+          makingPlan: true,
         })
         .then(async () => {
           if (type === "class-change") {
@@ -1718,7 +1712,7 @@ export default {
     },
     keys() {
       return this.docSnap.data().klucze.filter((key) => {
-        //if (key.klasa == this.currentClass) return key;
+        //if (key.klasa == this.currentClass) return key; <-- wersja z powiadomieniami
         if (key.klasa == this.currentClass) {
           this.refreshKey;
           for (let y = 0; y < this.classes.length; y++) {

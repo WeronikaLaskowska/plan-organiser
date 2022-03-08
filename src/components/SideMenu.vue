@@ -74,6 +74,15 @@
         <p>TWÓRZ PLAN</p>
       </div>
 
+      <div v-if="myPlansActive" class="option cal active btn-menu active-cal">
+        <img src="./../assets/callendar-icon-white.png" alt="" />
+        <p>MOJE PLANY</p>
+      </div>
+      <div v-else @click="redirectPlans" class="option cal">
+        <img src="./../assets/calendar-icon.png" alt="" />
+        <p>MOJE PLANY</p>
+      </div>
+
       <div @click="logout" class="btn logout">
         <img src="./../assets/logout-icon.png" alt="" />
         WYLOGUJ
@@ -84,8 +93,7 @@
         <span class="">Czy jesteś pewien</span>, że potwierdzasz wprowadzone
         przez siebie dane i chcesz przejść do ostatniego kroku: tworzenia planu?
         <span class="warning"
-          >Krok ostatni nalezy wypełnić bez wylogowywania/ wychodzenia z
-          aplikacji, inaczej wszystkie dane zostaną stracone!</span
+          >W trakcie tworzenia planu nie mozna edytować wprowadzonych wcześniej danych!</span
         >
       </p>
       <div @click="redirectCalR" class="btn">POTWIERDZAM</div>
@@ -96,6 +104,8 @@
 <script>
 import { auth, db } from "./../firebase/config.js";
 import { doc, getDoc } from "firebase/firestore";
+import { showSnackbar } from "./../composables/snackbar";
+
 export default {
   name: "SideMenu",
   props: [
@@ -104,10 +114,11 @@ export default {
     "keysActive",
     "clockActive",
     "calActive",
+    "myPlansActive",
     "locked",
   ],
-  mounted() {
-    auth.onAuthStateChanged(async (user) => {
+  created(){
+      auth.onAuthStateChanged(async (user) => {
       if (user) {
         const docRef = doc(db, "data", auth.currentUser.uid);
         this.docSnap = await getDoc(docRef);
@@ -122,6 +133,22 @@ export default {
       }
     });
   },
+  mounted() {
+    // auth.onAuthStateChanged(async (user) => {
+    //   if (user) {
+    //     const docRef = doc(db, "data", auth.currentUser.uid);
+    //     this.docSnap = await getDoc(docRef);
+    //     if (this.makingPlan) {
+    //       this.locked = true;
+    //       if (this.$router.currentRoute.path !== "/tworz-plan") {
+    //         this.$router.push({ name: "CreatePlan" });
+    //       }
+    //     }
+    //   } else {
+    //     this.$router.push({ name: "Auth" });
+    //   }
+    // });
+  },
   methods: {
     redirectData() {
       if (!this.locked) this.$router.push({ name: "EnterData" });
@@ -134,6 +161,10 @@ export default {
     },
     redirectClock() {
       if (!this.locked) this.$router.push({ name: "EnterHours" });
+    },
+    redirectPlans(){
+      if(this.saved_plans.length > 0) this.$router.push({ name: "MyPlans" });
+      else showSnackbar(`Nie masz zadnych planów`);
     },
     redirectCal() {
       this.$modal.show("confirmation");
@@ -151,6 +182,7 @@ export default {
           hours_s: this.hours_s,
           hours_e: this.hours_e,
           makingPlan: true,
+          saved_plans: this.saved_plans,
         })
         .then(() => {
           this.$router.push({ name: "CreatePlan" });
@@ -203,6 +235,9 @@ export default {
     },
     hours_e() {
       return this.docSnap.data().hours_e;
+    },
+     saved_plans() {
+      return this.docSnap.data().saved_plans;
     },
   },
 };
@@ -263,7 +298,7 @@ export default {
   cursor: pointer;
 }
 .logout {
-  margin-top: 60px;
+  margin-top: 30px;
 }
 .btn-menu {
   padding: 0px 40px;

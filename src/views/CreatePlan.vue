@@ -38,7 +38,10 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_1_p = '', checkCounters('deleted-subj')" v-model="lesson_1">
+          <select
+            @change="(lesson_1_p = ''), checkCounters('deleted-subj')"
+            v-model="lesson_1"
+          >
             <option
               v-for="(key, index) in checkTeachers(keys, 0)"
               :key="index"
@@ -64,7 +67,10 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_2_p = '', checkCounters('deleted-subj')" v-model="lesson_2">
+          <select
+            @change="(lesson_2_p = ''), checkCounters('deleted-subj')"
+            v-model="lesson_2"
+          >
             <option
               v-for="(key, index) in checkTeachers(keys, 1)"
               :key="index"
@@ -90,7 +96,10 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_3_p = '', checkCounters('deleted-subj')" v-model="lesson_3">
+          <select
+            @change="(lesson_3_p = ''), checkCounters('deleted-subj')"
+            v-model="lesson_3"
+          >
             <option
               v-for="(key, index) in checkTeachers(keys, 2)"
               :key="index"
@@ -116,7 +125,10 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_4_p = '', checkCounters('deleted-subj')" v-model="lesson_4">
+          <select
+            @change="(lesson_4_p = ''), checkCounters('deleted-subj')"
+            v-model="lesson_4"
+          >
             <option
               v-for="(key, index) in checkTeachers(keys, 3)"
               :key="index"
@@ -142,7 +154,10 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_5_p = '', checkCounters('deleted-subj')" v-model="lesson_5">
+          <select
+            @change="(lesson_5_p = ''), checkCounters('deleted-subj')"
+            v-model="lesson_5"
+          >
             <option
               v-for="(key, index) in checkTeachers(keys, 4)"
               :key="index"
@@ -168,7 +183,10 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_6_p = '', checkCounters('deleted-subj')" v-model="lesson_6">
+          <select
+            @change="(lesson_6_p = ''), checkCounters('deleted-subj')"
+            v-model="lesson_6"
+          >
             <option
               v-for="(key, index) in checkTeachers(keys, 5)"
               :key="index"
@@ -194,7 +212,10 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_7_p = '', checkCounters('deleted-subj')" v-model="lesson_7">
+          <select
+            @change="(lesson_7_p = ''), checkCounters('deleted-subj')"
+            v-model="lesson_7"
+          >
             <option
               v-for="(key, index) in checkTeachers(keys, 6)"
               :key="index"
@@ -220,7 +241,10 @@
           >
             <i class="fa-solid fa-xmark fa-2x"></i>
           </span>
-          <select @change="lesson_8_p = '', checkCounters('deleted-subj')" v-model="lesson_8">
+          <select
+            @change="(lesson_8_p = ''), checkCounters('deleted-subj')"
+            v-model="lesson_8"
+          >
             <option
               v-for="(key, index) in checkTeachers(keys, 7)"
               :key="index"
@@ -247,12 +271,349 @@
         DALEJ
         <img src="./../assets/next-icon.png" alt="" />
       </div>
+
+      <div v-if="visible" class="btn download" @click="generateReport">
+        POBIERZ
+      </div>
+
+      <div v-if="visible"  class="btn save" @click="popModal">ZAPISZ</div>
+
+      <modal name="planSave" class="confirmation-modal">
+      <p>
+       Czy jesteś pewien, ze zakonczyłeś proces tworzenia planu i chcesz zapisać go na swoim profilu?
+      </p>
+      <input type="name" v-model="planName" placeholder="Nazwij swój plan">
+      <div @click="savePlan" class="btn">POTWIERDZAM</div>
+    </modal>
+    </div>
+
+    <div>
+      <vue-html2pdf
+        :show-layout="false"
+        :float-layout="true"
+        :enable-download="true"
+        :preview-modal="true"
+        :paginate-elements-by-height="1400"
+        filename="plan"
+        :pdf-quality="2"
+        :manual-pagination="false"
+        pdf-format="a4"
+        pdf-orientation="landscape"
+        pdf-content-width="800px"
+        @hasStartedGeneration="hasStartedGeneration()"
+        @hasGenerated="hasGenerated($event)"
+        ref="html2Pdf"
+      >
+        <section slot="pdf-content">
+          <div class="table" v-for="clas in classes" :key="clas.name">
+            <h1>{{ clas.name }}</h1>
+            <div class="weekdays">
+              <div class="weekday">
+                <h2>PONIEDZIAŁEK</h2>
+                <p>
+                  LEKCJA 1:{{
+                    clas.monday[0] === null
+                      ? "  -----------"
+                      : clas.monday[0].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 2:{{
+                    clas.monday[1] === null
+                      ? "  -----------"
+                      : clas.monday[1].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 3:{{
+                    clas.monday[2] === null
+                      ? "  -----------"
+                      : clas.monday[2].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 4:{{
+                    clas.monday[3] === null
+                      ? "  -----------"
+                      : clas.monday[3].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 5:{{
+                    clas.monday[4] === null
+                      ? "  -----------"
+                      : clas.monday[4].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 6:{{
+                    clas.monday[5] === null
+                      ? "  -----------"
+                      : clas.monday[5].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 7:{{
+                    clas.monday[6] === null
+                      ? "  -----------"
+                      : clas.monday[6].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 8:{{
+                    clas.monday[7] === null
+                      ? "  -----------"
+                      : clas.monday[7].przedmiot
+                  }}
+                </p>
+              </div>
+              <div class="weekday">
+                <h2>WTOREK</h2>
+                <p>
+                  LEKCJA 1:{{
+                    clas.tuesday[0] === null
+                      ? "  -----------"
+                      : clas.tuesday[0].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 2:{{
+                    clas.tuesday[1] === null
+                      ? "  -----------"
+                      : clas.tuesday[1].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 3:{{
+                    clas.tuesday[2] === null
+                      ? "  -----------"
+                      : clas.tuesday[2].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 4:{{
+                    clas.tuesday[3] === null
+                      ? "  -----------"
+                      : clas.tuesday[3].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 5:{{
+                    clas.tuesday[4] === null
+                      ? "  -----------"
+                      : clas.tuesday[4].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 6:{{
+                    clas.tuesday[5] === null
+                      ? "  -----------"
+                      : clas.tuesday[5].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 7:{{
+                    clas.tuesday[6] === null
+                      ? "  -----------"
+                      : clas.tuesday[6].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 8:{{
+                    clas.tuesday[7] === null
+                      ? "  -----------"
+                      : clas.tuesday[7].przedmiot
+                  }}
+                </p>
+              </div>
+              <div class="weekday">
+                <h2>ŚRODA</h2>
+                <p>
+                  LEKCJA 1:{{
+                    clas.wen[0] === null
+                      ? "  -----------"
+                      : clas.wen[0].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 2:{{
+                    clas.wen[1] === null
+                      ? "  -----------"
+                      : clas.wen[1].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 3:{{
+                    clas.wen[2] === null
+                      ? "  -----------"
+                      : clas.wen[2].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 4:{{
+                    clas.wen[3] === null
+                      ? "  -----------"
+                      : clas.wen[3].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 5:{{
+                    clas.wen[4] === null
+                      ? "  -----------"
+                      : clas.wen[4].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 6:{{
+                    clas.wen[5] === null
+                      ? "  -----------"
+                      : clas.wen[5].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 7:{{
+                    clas.wen[6] === null
+                      ? "  -----------"
+                      : clas.wen[6].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 8:{{
+                    clas.wen[7] === null
+                      ? "  -----------"
+                      : clas.wen[7].przedmiot
+                  }}
+                </p>
+              </div>
+              <div class="weekday">
+                <h2>CZWARTEK</h2>
+                <p>
+                  LEKCJA 1:{{
+                    clas.thur[0] === null
+                      ? "  -----------"
+                      : clas.thur[0].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 2:{{
+                    clas.thur[1] === null
+                      ? "  -----------"
+                      : clas.thur[1].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 3:{{
+                    clas.thur[2] === null
+                      ? "  -----------"
+                      : clas.thur[2].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 4:{{
+                    clas.thur[3] === null
+                      ? "  -----------"
+                      : clas.thur[3].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 5:{{
+                    clas.thur[4] === null
+                      ? "  -----------"
+                      : clas.thur[4].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 6:{{
+                    clas.thur[5] === null
+                      ? "  -----------"
+                      : clas.thur[5].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 7:{{
+                    clas.thur[6] === null
+                      ? "  -----------"
+                      : clas.thur[6].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 8:{{
+                    clas.thur[7] === null
+                      ? "  -----------"
+                      : clas.thur[7].przedmiot
+                  }}
+                </p>
+              </div>
+              <div class="weekday">
+                <h2>PIĄTEK</h2>
+                <p>
+                  LEKCJA 1:{{
+                    clas.friday[0] === null
+                      ? "  -----------"
+                      : clas.friday[0].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 2:{{
+                    clas.friday[1] === null
+                      ? "  -----------"
+                      : clas.friday[1].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 3:{{
+                    clas.friday[2] === null
+                      ? "  -----------"
+                      : clas.friday[2].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 4:{{
+                    clas.friday[3] === null
+                      ? "  -----------"
+                      : clas.friday[3].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 5:{{
+                    clas.friday[4] === null
+                      ? "  -----------"
+                      : clas.friday[4].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 6:{{
+                    clas.friday[5] === null
+                      ? "  -----------"
+                      : clas.friday[5].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 7:{{
+                    clas.friday[6] === null
+                      ? "  -----------"
+                      : clas.friday[6].przedmiot
+                  }}
+                </p>
+                <p>
+                  LEKCJA 8:{{
+                    clas.friday[7] === null
+                      ? "  -----------"
+                      : clas.friday[7].przedmiot
+                  }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </vue-html2pdf>
     </div>
   </div>
 </template>
 
 <script>
 import SideMenu from "@/components/SideMenu";
+import VueHtml2pdf from "vue-html2pdf";
 import { showSnackbar } from "./../composables/snackbar";
 import { auth, db } from "./../firebase/config.js";
 import { doc, getDoc } from "firebase/firestore";
@@ -260,6 +621,7 @@ export default {
   name: "CreatePlan",
   components: {
     SideMenu,
+    VueHtml2pdf,
   },
   data() {
     return {
@@ -299,9 +661,52 @@ export default {
       correct: false,
       visible: true,
       refreshKey: false,
+      planName:"",
     };
   },
   methods: {
+    generateReport() {
+      this.$refs.html2Pdf.generatePdf();
+    },
+    async savePlan() {
+      this.$modal.hide("planSave");
+      const clearClasses = this.classes.map((clas) => {
+        return {
+          name: clas.name,
+          monday: [null, null, null, null, null, null, null, null],
+          tuesday: [null, null, null, null, null, null, null, null],
+          wen: [null, null, null, null, null, null, null, null],
+          thur: [null, null, null, null, null, null, null, null],
+          friday: [null, null, null, null, null, null, null, null],
+        };
+      });
+
+      const saved = this.saved_plans;
+      saved.push({
+        klucze: this.keysAll,
+        klasy: this.classes,
+        nauczyciele: this.teachers,
+        przedmioty: this.subjects,
+        hours_s: this.hours_s,
+        hours_e: this.hours_e,
+        name:this.planName==="" ? "PLAN" : this.planName
+      });
+
+      console.log(saved)
+
+      await db.collection("data").doc(auth.currentUser.uid).set({
+        klucze: this.keysAll,
+        klasy: clearClasses,
+        nauczyciele: this.teachers,
+        przedmioty: this.subjects,
+        hours_s: this.hours_s,
+        hours_e: this.hours_e,
+        makingPlan: false,
+        saved_plans: saved,
+      }).then(()=>{
+        this.$router.push({ name: "Tutorial" });
+      })
+    },
     checkSpelling() {
       if (this.currDay === "mon") return "Poniedziałek";
       if (this.currDay === "tue") return "Wtorek";
@@ -309,53 +714,58 @@ export default {
       if (this.currDay === "thur") return "Czwartek";
       if (this.currDay === "fri") return "Piątek";
     },
+    popModal(){
+    this.$modal.show("planSave");
+    },
     checkTeachers(keys, num) {
-      //return keys;  <-- wersja bez automatycznego usuwania z selectow (powiadomienia pokazuja sie)
-      return keys.filter((key) => {
-        for (let x = 0; x < this.classes.length; x++) {
-          if (this.currDay == "mon") {
-            if (
-              this.classes[x].monday[num] !== null &&
-              this.classes[x].monday[num].nauczyciel == key.nauczyciel
-            ) {
-              return;
-            }
-          }
-          if (this.currDay == "tue") {
-            if (
-              this.classes[x].tuesday[num] !== null &&
-              this.classes[x].tuesday[num].nauczyciel == key.nauczyciel
-            ) {
-              return;
-            }
-          }
-          if (this.currDay == "wen") {
-            if (
-              this.classes[x].wen[num] !== null &&
-              this.classes[x].wen[num].nauczyciel == key.nauczyciel
-            ) {
-              return;
-            }
-          }
-          if (this.currDay == "thur") {
-            if (
-              this.classes[x].thur[num] !== null &&
-              this.classes[x].thur[num].nauczyciel == key.nauczyciel
-            ) {
-              return;
-            }
-          }
-          if (this.currDay == "fri") {
-            if (
-              this.classes[x].friday[num] !== null &&
-              this.classes[x].friday[num].nauczyciel == key.nauczyciel
-            ) {
-              return;
-            }
-          }
-        }
-        return key;
-      });
+      console.log(num);
+      return keys;
+      //<-- wersja bez automatycznego usuwania z selectow (powiadomienia pokazuja sie)
+      // return keys.filter((key) => {
+      //   for (let x = 0; x < this.classes.length; x++) {
+      //     if (this.currDay == "mon") {
+      //       if (
+      //         this.classes[x].monday[num] !== null &&
+      //         this.classes[x].monday[num].nauczyciel == key.nauczyciel
+      //       ) {
+      //         return;
+      //       }
+      //     }
+      //     if (this.currDay == "tue") {
+      //       if (
+      //         this.classes[x].tuesday[num] !== null &&
+      //         this.classes[x].tuesday[num].nauczyciel == key.nauczyciel
+      //       ) {
+      //         return;
+      //       }
+      //     }
+      //     if (this.currDay == "wen") {
+      //       if (
+      //         this.classes[x].wen[num] !== null &&
+      //         this.classes[x].wen[num].nauczyciel == key.nauczyciel
+      //       ) {
+      //         return;
+      //       }
+      //     }
+      //     if (this.currDay == "thur") {
+      //       if (
+      //         this.classes[x].thur[num] !== null &&
+      //         this.classes[x].thur[num].nauczyciel == key.nauczyciel
+      //       ) {
+      //         return;
+      //       }
+      //     }
+      //     if (this.currDay == "fri") {
+      //       if (
+      //         this.classes[x].friday[num] !== null &&
+      //         this.classes[x].friday[num].nauczyciel == key.nauczyciel
+      //       ) {
+      //         return;
+      //       }
+      //     }
+      //   }
+      //   return key;
+      // });
     },
     clearMockups() {
       this.lesson_1_p = "";
@@ -665,7 +1075,7 @@ export default {
         (this.lesson_6 === "" || this.lesson_6 === undefined) &&
         (this.lesson_7 === "" || this.lesson_7 === undefined) &&
         (this.lesson_8 === "" || this.lesson_8 === undefined) &&
-        type !== 'deleted-subj'
+        type !== "deleted-subj"
       ) {
         if (type === "class-change") {
           this.currentClass = this.classSelect;
@@ -1599,6 +2009,7 @@ export default {
           hours_s: this.hours_s,
           hours_e: this.hours_e,
           makingPlan: true,
+          saved_plans:this.saved_plans
         })
         .then(async () => {
           if (type === "class-change") {
@@ -1773,11 +2184,26 @@ export default {
     hours_e() {
       return this.docSnap.data().hours_e;
     },
+    saved_plans() {
+      return this.docSnap.data().saved_plans;
+    },
   },
 };
 </script>
 
 <style scoped>
+.download {
+  margin-left: 350px;
+  width: 50px;
+  margin-top: -20px;
+  font-size: 15px;
+}
+.save {
+  margin-left: 350px;
+  width: 50px;
+  margin-top: -90px;
+  font-size: 15px;
+}
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -1818,6 +2244,10 @@ select {
   color: #fff;
   border-radius: 100%;
 }
+input{
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
 .next {
   margin-left: 550px;
   margin-top: -50px;
@@ -1833,6 +2263,25 @@ select {
 .day {
   position: absolute;
   right: 10%;
+}
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.weekday {
+  display: flex;
+  min-width: 300px;
+  padding: 10px 30px;
+  flex-direction: column;
+  font-size: 20px;
+}
+.weekday h2 {
+  color: #bccc9a;
+}
+.weekday p {
+  border: 2px solid #bccc9a;
+  border-radius: 10px;
+  padding: 10px 4px;
 }
 
 .subj {

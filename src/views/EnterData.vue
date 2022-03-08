@@ -232,7 +232,8 @@ export default {
           przedmioty: this.subjects,
           hours_s: this.hours_s,
           hours_e:this.hours_e,
-          makingPlan: this.makingPlan
+          makingPlan: false,
+          saved_plans: this.saved_plans,
 
         })
         .then(() => {
@@ -355,7 +356,8 @@ export default {
           przedmioty: this.subjects,
           hours_s: this.hours_s,
           hours_e: this.hours_e,
-          makingPlan: this.makingPlan
+          makingPlan: false,
+          saved_plans: this.saved_plans
         })
         .then(() => {
           this.$modal.hide("modal");
@@ -384,6 +386,9 @@ export default {
     },
      makingPlan() {
       return this.docSnap.data().makingPlan;
+    },
+     saved_plans() {
+      return this.docSnap.data().saved_plans;
     },
   },
 };

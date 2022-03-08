@@ -7,6 +7,7 @@ import EnterData from '@/views/EnterData'
 import EnterHours from '@/views/EnterHours'
 import EnterKeys from '@/views/EnterKeys'
 import CreatePlan from '@/views/CreatePlan'
+import MyPlans from '@/views/MyPlans'
 
 //import { auth } from './firebase/config.js'
 Vue.use(Router);
@@ -53,6 +54,12 @@ export const router = new Router({
       path: "/tworz-plan",
       name: "CreatePlan",
       component: CreatePlan,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/moje-plany",
+      name: "MyPlans",
+      component: MyPlans,
       meta: { requiresAuth: true }
     },
     

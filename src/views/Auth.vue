@@ -156,6 +156,7 @@ export default {
                     przedmioty: [],
                     hours_s: [],
                     hours_e: [],
+                    saved_plans:[],
                     makingPlan: false
                     
                   })

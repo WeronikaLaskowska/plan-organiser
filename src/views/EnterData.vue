@@ -516,7 +516,7 @@ i {
   position: relative;
   margin-left: 100px;
   max-height: 48vh;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 .data-list p {
   cursor: pointer;

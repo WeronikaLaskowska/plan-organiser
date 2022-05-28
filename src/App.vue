@@ -103,10 +103,11 @@ input:focus {
   margin-top: 1px;
 }
 .container-2 {
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin:auto;
 }
 .content {
   width: 860px;

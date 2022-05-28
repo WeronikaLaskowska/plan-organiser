@@ -2212,7 +2212,7 @@ export default {
   height: 100%;
   margin: auto;
   max-height: 700px;
-  overflow: scroll;
+  overflow: hidden;
 }
 .lesson {
   display: flex;
@@ -2262,7 +2262,7 @@ input{
 }
 .day {
   position: absolute;
-  right: 10%;
+  left:70%;
 }
 .weekdays {
   display: grid;

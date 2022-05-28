@@ -50,11 +50,13 @@
               {{ teacher }}
             </option>
           </select>
+          
         </div>
-      </div>
-      <div @click="addKey" class="btn add key-add">
+         <div @click="addKey" class="btn add key-add">
         <img src="./../assets/add-icon.png" alt="" />
       </div>
+      </div>
+     
       <div class="keys">
         <div v-for="(key, index) in keys" :key="index" class="user-keys">
           <i
@@ -206,6 +208,9 @@ export default {
 </script>
 
 <style scoped>
+.scnd-row{
+  display:flex;
+}
 .container-2 {
   position: relative;
 }
@@ -249,10 +254,10 @@ input {
   margin-top: 10px;
 }
 .key-add {
+  height: 20px;
   width: 20px;
-  position: absolute;
-  top: 30%;
-  right: 10%;
+  margin-left:50px;
+  margin-top:15px;
 }
 .user-keys {
   display: flex;
@@ -264,7 +269,7 @@ input {
 }
 .keys {
   max-height: 380px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 .delete-key {
   margin-top: 25px;

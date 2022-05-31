@@ -247,7 +247,12 @@ p {
   right: -2%;
   padding: 10px;
 }
-
+@media screen and (max-height:750px){
+  .container {
+  height: 100vh;
+  margin-top: 0px;
+}
+}
 @media screen and (max-width:1100px){
   .container {
   width: 800px !important;

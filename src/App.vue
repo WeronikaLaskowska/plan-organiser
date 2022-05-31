@@ -109,12 +109,19 @@ input:focus {
   justify-content: center;
   margin:auto;
 }
+
 .content {
   width: 860px;
   height: 750px;
   display: block;
   background: #fff;
   border-radius: 30px;
+}
+@media screen and (max-height:750px){
+  .content {
+  height: 100vh;
+  margin-top: 0px;
+}
 }
 .snackbar {
   position: absolute;

@@ -252,6 +252,19 @@ export default {
   margin-right: 40px;
   position: relative;
 }
+@media screen and (max-height:750px){
+  .menu {
+  margin-top: 0px;
+  height:100vh;
+}
+.logo{
+  display:none;
+}
+.options {
+  margin-top: 0px !important;
+  padding: 0px;
+}
+}
 .logo {
   width: 278px;
   height: 242px;

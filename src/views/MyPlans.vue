@@ -405,7 +405,7 @@ export default {
 .wrap{
   padding: 30px;
  max-height: 700px;
- overflow: scroll;
+ overflow-y: scroll;
 }
 .plans {
   padding: 10px;

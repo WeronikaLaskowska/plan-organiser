@@ -172,7 +172,7 @@ export default {
     },
     redirectCalR() {
       this.$modal.hide("confirmation");
-      db.collection("data")
+     /* db.collection("data")
         .doc(auth.currentUser.uid)
         .set({
           klucze: this.keys,
@@ -184,9 +184,9 @@ export default {
           makingPlan: true,
           saved_plans: this.saved_plans,
         })
-        .then(() => {
+        .then(() => {*/
           this.$router.push({ name: "CreatePlan" });
-        });
+       // });
     },
     logout() {
       auth.signOut().then(() => {

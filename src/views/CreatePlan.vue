@@ -692,7 +692,6 @@ export default {
         name:this.planName==="" ? "PLAN" : this.planName
       });
 
-      console.log(saved)
 
       await db.collection("data").doc(auth.currentUser.uid).set({
         klucze: this.keysAll,

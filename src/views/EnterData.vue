@@ -395,13 +395,15 @@ export default {
 </script>
 
 <style scoped>
+.header{
+  display: flex;
+  justify-content: space-between;
+}
 .select-data {
-  position: relative;
+  position:relative;
 }
 .title {
-  position: absolute;
-  top: 2%;
-  right: 10%;
+  padding-right: 50px;
   font-weight: 400;
   color: #c37b89;
 }
@@ -416,7 +418,6 @@ export default {
 .select {
   justify-content: center;
   align-items: flex-start;
-  width: 101%;
   z-index: 5;
 }
 img,
@@ -432,11 +433,11 @@ p {
   background: #eae7c6;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-  width: 33.4%;
-  left: 3.5%;
+  left: 8.5%;
   display: flex;
   justify-content: flex-start;
   position: absolute;
+  width:242.8px;
   top: 107px;
   z-index: 2;
 }
@@ -454,7 +455,7 @@ p {
   border-bottom: 1px solid #bccc9a;
 }
 .first-op {
-  width: 40%;
+  width:303px;
   border-radius: 10px;
   display: flex;
   background: #eae7c6;

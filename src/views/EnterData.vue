@@ -395,6 +395,9 @@ export default {
 </script>
 
 <style scoped>
+input{
+  max-height: 50px;
+}
 .header{
   display: flex;
   justify-content: space-between;

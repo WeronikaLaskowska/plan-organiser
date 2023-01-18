@@ -1,8 +1,19 @@
 <template>
-  <div class="w">
+  <div v-if="width>1200" class="w">
     <router-view></router-view>
-    <div class="snackbar" :class="type==='success' ? 'snackbar-green' : 'snackbar-red'" v-if="snackbar">
+    <div
+      class="snackbar"
+      :class="type === 'success' ? 'snackbar-green' : 'snackbar-red'"
+      v-if="snackbar"
+    >
       <p>{{ snackbarMessage }}</p>
+    </div>
+  </div>
+  <div class="alert-wrap" v-else>
+    <div class="alert">
+      <h1>Przepraszamy</h1>
+      <p>Aplikacja Plan Organiser nie obsługuje trybu mobilnego. Zachęcamy do korzystania z aplikacji na komputerze stacjonarnym bądź laptopie. </p>
+      <p>Aplikacja mobilna wkrótce.</p>
     </div>
   </div>
 </template>
@@ -14,11 +25,15 @@ export default {
   data: () => ({
     snackbar: false,
     snackbarMessage: "",
-    type:""
+    width: window.innerWidth,
+    type: "",
   }),
   mounted() {
-    
-    EventBus.$on(ACTIONS.SNACKBAR, (message,type) => {
+    window.addEventListener("resize", () => {
+      this.width = window.innerWidth;
+    });
+
+    EventBus.$on(ACTIONS.SNACKBAR, (message, type) => {
       this.snackbarMessage = message;
       this.snackbar = true;
       this.type = type;
@@ -54,9 +69,9 @@ input {
 input:focus {
   outline: none;
 }
-@media screen and (max-width:1100px) {
-  input{
-    padding: 10px 20px !important; 
+@media screen and (max-width: 1100px) {
+  input {
+    padding: 10px 20px !important;
   }
 }
 
@@ -107,7 +122,7 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin:auto;
+  margin: auto;
 }
 
 .content {
@@ -117,11 +132,11 @@ input:focus {
   background: #fff;
   border-radius: 30px;
 }
-@media screen and (max-height:750px){
+@media screen and (max-height: 750px) {
   .content {
-  height: 100vh;
-  margin-top: 0px;
-}
+    height: 100vh;
+    margin-top: 0px;
+  }
 }
 .snackbar {
   position: absolute;
@@ -131,7 +146,7 @@ input:focus {
   width: 300px;
   color: #fff;
   padding: 30px;
-  margin:10px;
+  margin: 10px;
   border-radius: 30px;
 }
 .snackbar p {
@@ -139,18 +154,39 @@ input:focus {
   height: 100%;
   align-items: center;
   justify-content: center;
-  margin:auto;
+  margin: auto;
   text-align: center;
   font-weight: 300;
 }
-.snackbar-green{
+.snackbar-green {
   background: #9cbe51;
-  border:3px solid #fff;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  border: 3px solid #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
-.snackbar-red{
+.snackbar-red {
   background: rgb(131, 31, 31);
-  border:3px solid #fff;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  border: 3px solid #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.alert-wrap{
+  display: grid;
+  place-items: center;
+}
+.alert{
+  background: #fff;
+  display: grid;
+  place-items: center;
+  max-width: 500px;
+  text-align: center;
+  padding: 10px 20px ;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin-top: 50px;
+  
+}
+@media screen and (max-width:500px) {
+  .alert{
+  max-width: 300px;
+}
 }
 </style>
